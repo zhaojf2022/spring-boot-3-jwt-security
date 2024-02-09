@@ -18,6 +18,10 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+/**
+ * 用户表，实现 UserDetails接口
+ */
+
 @Data
 @Builder
 @NoArgsConstructor
@@ -34,12 +38,15 @@ public class User implements UserDetails {
   private String email;
   private String password;
 
+  // 用户的角色（枚举值）
   @Enumerated(EnumType.STRING)
   private Role role;
 
+  // 一个用户（User）对象中，拥有多个令牌（Token）对象。
   @OneToMany(mappedBy = "user")
   private List<Token> tokens;
 
+  // 获取角色对应的权限列表
   @Override
   public Collection<? extends GrantedAuthority> getAuthorities() {
     return role.getAuthorities();
@@ -50,26 +57,31 @@ public class User implements UserDetails {
     return password;
   }
 
+  // 获取用户名（使用 email 作为用户名）
   @Override
   public String getUsername() {
     return email;
   }
 
+  // 用户账号是否过期
   @Override
   public boolean isAccountNonExpired() {
     return true;
   }
 
+  // 用户账号是否没有被封禁
   @Override
   public boolean isAccountNonLocked() {
     return true;
   }
 
+  // 用户凭证是否没有过期
   @Override
   public boolean isCredentialsNonExpired() {
     return true;
   }
 
+  // 用户是否启用
   @Override
   public boolean isEnabled() {
     return true;

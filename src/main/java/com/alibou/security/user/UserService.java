@@ -7,23 +7,33 @@ import org.springframework.stereotype.Service;
 
 import java.security.Principal;
 
+/**
+ * 用户服务
+ */
+
 @Service
 @RequiredArgsConstructor
 public class UserService {
 
     private final PasswordEncoder passwordEncoder;
     private final UserRepository repository;
+
+    /**
+     * 修改用户密码
+     * @param request ChangePasswordRequest
+     * @param connectedUser Principal
+     */
     public void changePassword(ChangePasswordRequest request, Principal connectedUser) {
 
         var user = (User) ((UsernamePasswordAuthenticationToken) connectedUser).getPrincipal();
 
         // check if the current password is correct
         if (!passwordEncoder.matches(request.getCurrentPassword(), user.getPassword())) {
-            throw new IllegalStateException("Wrong password");
+            throw new IllegalStateException("密码错误");
         }
         // check if the two new passwords are the same
         if (!request.getNewPassword().equals(request.getConfirmationPassword())) {
-            throw new IllegalStateException("Password are not the same");
+            throw new IllegalStateException("密码不一致");
         }
 
         // update the password
