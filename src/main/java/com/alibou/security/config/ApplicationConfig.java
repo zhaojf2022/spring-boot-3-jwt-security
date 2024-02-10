@@ -16,18 +16,29 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+/**
+ * 应用配置
+ */
 @Configuration
 @RequiredArgsConstructor
 public class ApplicationConfig {
 
   private final UserRepository repository;
 
+  /**
+   * 用户详情服务
+   * @return UserDetailsService
+   */
   @Bean
   public UserDetailsService userDetailsService() {
     return username -> repository.findByEmail(username)
-        .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+        .orElseThrow(() -> new UsernameNotFoundException("没有找到用户"));
   }
 
+  /**
+   * 认证提供者，封装了用户详情服务和密码编码器
+   * @return AuthenticationProvider
+   */
   @Bean
   public AuthenticationProvider authenticationProvider() {
     DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
@@ -36,16 +47,30 @@ public class ApplicationConfig {
     return authProvider;
   }
 
+  /**
+   * 审计者
+   * @return AuditorAware<Integer>
+   */
   @Bean
   public AuditorAware<Integer> auditorAware() {
     return new ApplicationAuditAware();
   }
 
+  /**
+   * 认证管理器
+   * @param config AuthenticationConfiguration
+   * @return AuthenticationManager
+   * @throws Exception 异常
+   */
   @Bean
   public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
     return config.getAuthenticationManager();
   }
 
+  /**
+   * 密码编码器
+   * @return PasswordEncoder
+   */
   @Bean
   public PasswordEncoder passwordEncoder() {
     return new BCryptPasswordEncoder();

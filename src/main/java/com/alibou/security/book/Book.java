@@ -17,6 +17,9 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
 
+/**
+ * 书籍
+ */
 @Data
 @Builder
 @NoArgsConstructor
@@ -33,8 +36,8 @@ public class Book {
 
     @CreatedDate
     @Column(
-            nullable = false,
-            updatable = false
+        nullable = false,
+        updatable = false
     )
     private LocalDateTime createDate;
 

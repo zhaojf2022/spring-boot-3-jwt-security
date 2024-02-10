@@ -6,6 +6,9 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * 认证响应 Bean
+ */
 @Data
 @Builder
 @AllArgsConstructor

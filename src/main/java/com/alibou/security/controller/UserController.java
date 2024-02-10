@@ -1,7 +1,7 @@
 package com.alibou.security.controller;
 
 import com.alibou.security.user.ChangePasswordRequest;
-import com.alibou.security.user.UserService;
+import com.alibou.security.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PatchMapping;
