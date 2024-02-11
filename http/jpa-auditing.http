@@ -1,4 +1,4 @@
-### Register User
+### Register User，将获取到的token保存为全局变量
 POST http://localhost:8080/api/v1/auth/register
 Content-Type: application/json
 
@@ -13,11 +13,10 @@ Content-Type: application/json
 > {% client.global.set("auth-token", response.body.access_token);  %}
 
 
-###Create a new book
+### Create a new book
 POST http://localhost:8080/api/v1/books
 Authorization: Bearer {{auth-token}}
 Content-Type: application/json
-
 {
   "author": "Alibou",
   "isbn": "12345"
