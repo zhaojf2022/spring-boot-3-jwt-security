@@ -71,6 +71,7 @@
 			<version>${jsonwebtoken.version}</version>
 		</dependency>
 
+		<!-- OpenAPI(Swagger3.0）规范的工具-->
 		<dependency>
 			<groupId>org.springdoc</groupId>
 			<artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
