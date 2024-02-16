@@ -83,9 +83,7 @@ public class JwtService {
    * @param userDetails UserDetails
    * @return String
    */
-  public String generateRefreshToken(
-      UserDetails userDetails
-  ) {
+  public String generateRefreshToken(UserDetails userDetails) {
     return buildToken(new HashMap<>(), userDetails, refreshExpiration);
   }
 
@@ -98,7 +96,7 @@ public class JwtService {
   private String buildToken(
           Map<String, Object> extraClaims,
           UserDetails userDetails,
-          long expiration) {
+            long expiration) {
 
     return Jwts.builder()
         // 设置用户名
